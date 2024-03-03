@@ -27,8 +27,8 @@ type card = {
     answers: Array<string>,
     correctAnswer: number,
     imageUri: object,
-    setSelectedVariant: (value: string) => void,
-    selectedVariant: string
+    setSelectedVariant: (value: number) => void,
+    selectedVariant: number
 }
 
 const Card = (props: card) => {
@@ -39,7 +39,7 @@ const Card = (props: card) => {
 
             {props.answers.map((value, index, array) => (
                 
-                <AnswerButton value={value} key={value} onPress={() => props.setSelectedVariant(value)} selected={props.selectedVariant === value}/>
+                <AnswerButton value={value} key={value} onPress={() => props.setSelectedVariant(index)} pressed={props.selectedVariant === index}/>
             ))}
         </View>
     )

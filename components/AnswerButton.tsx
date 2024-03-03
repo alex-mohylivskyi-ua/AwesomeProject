@@ -3,7 +3,7 @@ import {Text, Pressable, StyleSheet} from 'react-native';
 
 type answerButtonProps = {
     value: string,
-    selected: boolean,
+    pressed: boolean,
     onPress: () => void
 }
 
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 function AnswerButton(props: answerButtonProps) {
     return (
       <Pressable 
-        style={[styles.answerButton, props.selected ? styles.answerButtonSelected : null]} 
+        style={[styles.answerButton, props.pressed ? styles.answerButtonSelected : null]} 
         onPress={props.onPress}
         >
         <Text style={styles.answerButtonText}>{props.value}</Text>

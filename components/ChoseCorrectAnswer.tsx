@@ -81,9 +81,22 @@ const cards = [
 ];
 
 const ChoseCorrectAnswer = () => {
-    const [selectedVariant, setSelectedVariant] = useState('');
-    const [correctAnswer, setCorrectAnswer] = useState('');
     const [currentCard, setCard] = useState(0);
+    const [selectedVariant, setSelectedVariant] = useState(-1);
+    const [correctAnswer, setCorrectAnswer] = useState(cards[currentCard].correctAnswer);
+    const [isCorrectSelected, setCorrectSelectedState] = useState(null);
+
+    const checkAnswer = () => {
+        if (selectedVariant !== -1) {
+            if (correctAnswer === selectedVariant) {
+                // setCorrectSelectedState(true);
+            }
+        }
+    }
+
+    
+
+
 
     return (
       <View style={{flex: 1}}>
@@ -107,7 +120,7 @@ const ChoseCorrectAnswer = () => {
           <View style={styles.checkAnswerButtonWrapper}>
               <Pressable 
                   style={styles.checkAnswerButton} 
-                  onPress={() => Alert.alert('Right button pressed')}
+                  onPress={() => checkAnswer()}
                   >
                   <Text style={styles.checkAnswerButtonText}>Перевірити</Text>
               </Pressable>
