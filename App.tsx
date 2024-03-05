@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import {View, Text, Image, ScrollView, TextInput, StyleSheet, Button, Alert, Pressable} from 'react-native';
-import Card from './components/Card';
 import ChoseCorrectAnswer from './components/ChoseCorrectAnswer';
+import store from './app/store';
+import { Provider } from 'react-redux';
 
 const App = () => {
   return (
-    <ChoseCorrectAnswer />
+    <Provider store={store}>
+      <ChoseCorrectAnswer />
+    </Provider>
   );
 };
 

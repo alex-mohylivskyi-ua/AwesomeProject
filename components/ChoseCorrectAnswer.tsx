@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import {View, Text, Image, StyleSheet, Alert, Pressable} from 'react-native';
 import Card from './Card';
+import { useSelector, useDispatch } from 'react-redux'
+import {
+  increment,
+  selectCount
+} from '../features/counter/counterSlice'
 
 const styles = StyleSheet.create({
     wrapper: {
@@ -84,7 +89,6 @@ const ChoseCorrectAnswer = () => {
     const [currentCard, setCard] = useState(0);
     const [selectedVariant, setSelectedVariant] = useState(-1);
     const [correctAnswer, setCorrectAnswer] = useState(cards[currentCard].correctAnswer);
-    const [isCorrectSelected, setCorrectSelectedState] = useState(null);
 
     const checkAnswer = () => {
         if (selectedVariant !== -1) {
@@ -93,6 +97,11 @@ const ChoseCorrectAnswer = () => {
             }
         }
     }
+
+    const count = useSelector(selectCount);
+    const dispatch = useDispatch();
+    // const [incrementAmount, setIncrementAmount] = useState('2');
+    console.log(count)
 
     
 
@@ -115,6 +124,16 @@ const ChoseCorrectAnswer = () => {
                 setSelectedVariant={setSelectedVariant}
                 selectedVariant={selectedVariant}
               />
+
+              <View>
+                  <Text>Value: {count} Pressable</Text>
+                  <Pressable 
+                      onPress={() => dispatch(increment())}
+                      >
+                      <Text>Increment</Text>
+                  </Pressable>
+              </View>
+
           </View>
   
           <View style={styles.checkAnswerButtonWrapper}>
