@@ -4,7 +4,9 @@ import {Text, Pressable, StyleSheet} from 'react-native';
 type answerButtonProps = {
     value: string,
     pressed: boolean,
-    onPress: () => void
+    onPress: () => void,
+    state: string,
+    disabled: boolean
 }
 
 const styles = StyleSheet.create({
@@ -17,9 +19,6 @@ const styles = StyleSheet.create({
       borderRadius: 5,
       marginBottom: 10
   
-    },
-    answerButtonSelected: {
-      backgroundColor: 'rgba(0, 204, 255, 1)'
     },
     answerButtonError: {
       backgroundColor: 'red'
@@ -38,16 +37,52 @@ const styles = StyleSheet.create({
     checkAnswerButtonText: {
       color: 'white',
       fontSize: 18
-    }
+    },
+
+
+
+    normalButton: {
+      backgroundColor: 'white',
+    },
+    normalButtonText: {
+      color: 'black',
+    },
+    answerButtonSelected: {
+      backgroundColor: 'rgba(0, 204, 255, 0.90)',
+    },
+    validButton: {
+      backgroundColor: 'green'
+    },
+    validButtonText: {
+      color: 'white'
+    },
+    errorButton: {
+      backgroundColor: 'red'
+    },
+    errorButtonText: {
+      color: 'white'
+    },
   });
 
 function AnswerButton(props: answerButtonProps) {
+  let buttonStyle, textStyle;
+
+  switch (props.state) {
+    case 'valid':
+      buttonStyle = styles.validButton;
+      textStyle = styles.validButtonText;
+      break;
+    case 'error':
+      buttonStyle = styles.errorButton;
+      textStyle = styles.errorButtonText;
+      break;
+  }
     return (
       <Pressable 
-        style={[styles.answerButton, props.pressed ? styles.answerButtonSelected : null]} 
+        style={[styles.answerButton, props.pressed ? styles.answerButtonSelected : null, buttonStyle]} 
         onPress={props.onPress}
         >
-        <Text style={styles.answerButtonText}>{props.value}</Text>
+        <Text style={styles.answerButtonText}>{props.value} {props.pressed ? 'p' : 'n'} </Text>
     </Pressable>
     );
 }

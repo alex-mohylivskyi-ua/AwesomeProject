@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
 import {Text, StyleSheet, View, Image,} from 'react-native';
 import AnswerButton from './AnswerButton';
+import { useSelector, useDispatch } from 'react-redux'
+import { setSelectedVariant, selectSelectedVariant, selectIsCorrectVariantSelected, selectIsChecked } from '../features/exercise/exerciseManagerSlice';
 
 const styles = StyleSheet.create({
   questionText: {
@@ -26,21 +27,39 @@ type card = {
     phrase: string,
     answers: Array<string>,
     correctAnswer: number,
-    imageUri: object,
-    setSelectedVariant: (value: number) => void,
-    selectedVariant: number
+    imageUri: object
 }
 
 const Card = (props: card) => {
+  const dispatch = useDispatch();
+  const selectedVariant = useSelector(selectSelectedVariant);
+  const isCorrectVariantSelected = useSelector(selectIsCorrectVariantSelected);
+  const isChecked = useSelector(selectIsChecked);
+
+  const handlePress = (index: number) => {
+    if (!isChecked) {
+      dispatch(setSelectedVariant(index))
+    }
+  }
     return (
         <View style={styles.alignCenter}>
             <Image source={props.imageUri} style={styles.questionImage}/>
             <Text style={styles.questionText}>{props.phrase}</Text>
 
-            {props.answers.map((value, index, array) => (
-                
-                <AnswerButton value={value} key={value} onPress={() => props.setSelectedVariant(index)} pressed={props.selectedVariant === index}/>
-            ))}
+            <Text >is correct selected {isCorrectVariantSelected ? 'yes' : 'no'}</Text>
+            <Text > Selected variant {selectedVariant}</Text>
+
+            {props.answers.map((value, index, array) => {
+              // Determine the state of the button
+              let state = '';
+              if (selectedVariant === index && isChecked) {
+                state = isCorrectVariantSelected ? 'valid' : 'error';
+              }
+
+              return (
+                <AnswerButton value={value} key={index} disabled={isChecked} onPress={ () => handlePress(index)} pressed={selectedVariant === index} state={state} />
+              )
+            })}
         </View>
     )
 }
