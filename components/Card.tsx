@@ -46,9 +46,6 @@ const Card = (props: card) => {
             <Image source={props.imageUri} style={styles.questionImage}/>
             <Text style={styles.questionText}>{props.phrase}</Text>
 
-            <Text >is correct selected {isCorrectVariantSelected ? 'yes' : 'no'}</Text>
-            <Text > Selected variant {selectedVariant}</Text>
-
             {props.answers.map((value, index, array) => {
               // Determine the state of the button
               let state = '';

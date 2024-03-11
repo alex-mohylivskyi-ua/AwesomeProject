@@ -84,11 +84,83 @@ const cards = [
             'run'
         ],
         correctAnswer: 2,
-        imageUri: require('../images/work_card.png')
-    }
+        imageUri: require('../images/run_card.png')
+    },
+    {
+      id: 'help',
+      name: 'help',
+      phrase: 'допомога, допомагати',
+      answers: [
+          'jump',
+          'help',
+          'fly'
+      ],
+      correctAnswer: 1,
+      imageUri: require('../images/help_card.png')
+    },
+    {
+      id: 'english',
+      name: 'english',
+      phrase: 'англійська',
+      answers: [
+          'english',
+          'ukrainian',
+          'England'
+      ],
+      correctAnswer: 0,
+      imageUri: require('../images/english_card.png')
+    },
+    {
+      id: 'brother',
+      name: 'brother',
+      phrase: 'брат',
+      answers: [
+          'uncle',
+          'people',
+          'brother'
+      ],
+      correctAnswer: 2,
+      imageUri: require('../images/brother_card.png')
+    },
+    {
+      id: 'this',
+      name: 'this',
+      phrase: 'цей',
+      answers: [
+          'those',
+          'this',
+          'these'
+      ],
+      correctAnswer: 1,
+      imageUri: require('../images/this_card.png')
+    },
+    {
+      id: 'book',
+      name: 'book',
+      phrase: 'книга',
+      answers: [
+          'book',
+          'magazine',
+          'paper'
+      ],
+      correctAnswer: 0,
+      imageUri: require('../images/book_card.png')
+    },
+    {
+      id: 'we',
+      name: 'we',
+      phrase: 'ми',
+      answers: [
+          'they',
+          'us',
+          'we'
+      ],
+      correctAnswer: 1,
+      imageUri: require('../images/we_card.png')
+    },
 ];
 
-const ChoseCorrectAnswer = () => {
+const ChoseCorrectAnswer = ({ navigation }) => {
     // const [currentCard, setCard] = useState(0);
     // const [selectedVariant, setSelectedVariant] = useState(-1);
 
@@ -108,12 +180,21 @@ const ChoseCorrectAnswer = () => {
         // Perform actions when the Pressable is not disabled
         dispatch(setIsChecked(true));
         if (isChecked) {
-          dispatch(setCurrentCardNumber(currentCardNumber + 1));
+          
 
           // Reset relevant states for the next card
           dispatch(setIsChecked(false));
           dispatch(setIsCorrectVariantSelected(false));
           dispatch(setSelectedVariant(null));
+
+          if((currentCardNumber + 1) < totalNumberOfCards) {
+            dispatch(setCurrentCardNumber(currentCardNumber + 1));
+          } else {
+            navigation.navigate('EnglishLevelSelectionPage');
+            dispatch(setCurrentCardNumber(0));
+          }
+          
+          
 
           // Here should be code that updates new currrentCardNumber, correctVariant, isChecked states
         } else {
@@ -123,9 +204,6 @@ const ChoseCorrectAnswer = () => {
             dispatch(setIsCorrectVariantSelected(false));
           }
         }
-
-        console.log(typeof selectedVariant);
-        
       }
     };
 
@@ -140,8 +218,7 @@ const ChoseCorrectAnswer = () => {
         <Image source={require('../images/background_2.png')} style={styles.questionBackgroundImage}/>
         <View style={[styles.flexDirectionColumn, styles.mainContainer]}>
           <View style={[styles.container, styles.wrapper]}>
-            <Text style={styles.taskName}>Виберіть правильний переклад! {currentCardNumber} {selectedVariant}</Text>
-            <Text style={styles.taskName}>Cards quantity {totalNumberOfCards}</Text>
+            <Text style={styles.taskName}>Виберіть правильний переклад!</Text>
             
               <Card 
                 id={cards[currentCardNumber].id}
@@ -162,7 +239,6 @@ const ChoseCorrectAnswer = () => {
                   >
                   <Text style={styles.checkAnswerButtonText}>{сheckAnswerButtonText}</Text>
               </Pressable>
-              
           </View>
         </View>
       </View>

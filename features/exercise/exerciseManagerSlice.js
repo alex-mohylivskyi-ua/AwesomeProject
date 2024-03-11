@@ -9,7 +9,8 @@ initialState: {
     isLastWord: false,
     currentCardNumber: 0,
     totalNumberOfCards: 0,
-    isChecked: false
+    isChecked: false,
+    userHealth: 5
 },
 reducers: {
     setSelectedVariant: (state, action) => {

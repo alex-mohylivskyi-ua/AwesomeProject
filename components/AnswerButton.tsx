@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       borderRadius: 5,
       marginBottom: 10
-  
     },
     answerButtonError: {
       backgroundColor: 'red'
@@ -82,7 +81,7 @@ function AnswerButton(props: answerButtonProps) {
         style={[styles.answerButton, props.pressed ? styles.answerButtonSelected : null, buttonStyle]} 
         onPress={props.onPress}
         >
-        <Text style={styles.answerButtonText}>{props.value} {props.pressed ? 'p' : 'n'} </Text>
+        <Text style={styles.answerButtonText}>{props.value}</Text>
     </Pressable>
     );
 }
